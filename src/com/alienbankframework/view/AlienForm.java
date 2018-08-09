@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.*;
 
 
-public class AlienForm extends AbstractFrame
+public final class AlienForm extends AbstractFrame
 {
     /****
      * init variables in the object

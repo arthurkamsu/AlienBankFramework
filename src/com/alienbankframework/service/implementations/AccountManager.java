@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.alienbankframework.Alien;
+import com.alienbankframework.controller.implementations.AlienController;
 import com.alienbankframework.domain.EntryType;
 import com.alienbankframework.domain.IAccount;
 import com.alienbankframework.domain.IEntry;
@@ -14,11 +16,28 @@ import com.alienbankframework.service.IAccountManager;
 
 public class AccountManager implements IAccountManager {
 	
+	private static volatile AccountManager instance = null;
+	
 	private List<IAccount> accountList = new ArrayList<IAccount>();
 
 	private IEntryFactory entryFactory = EntryFactory.getInstance();
 	
 	private double updatedAccountBalance;
+	
+	
+    public static AccountManager getInstance() {
+        if (instance == null) {
+            synchronized(Alien.class) {
+                if (instance == null) {
+                    instance = new AccountManager();
+                }                
+            }
+        }else System.out.println("Instance of AccountManager alredy exists. The existing instance is being returned.");
+        return instance;
+    }
+    
+    private AccountManager() {}
+	
 	
 	public void addAccount(IAccount acc) {
 		accountList.add(acc);

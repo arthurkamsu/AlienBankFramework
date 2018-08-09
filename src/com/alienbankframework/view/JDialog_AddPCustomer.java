@@ -9,7 +9,7 @@ import javax.swing.*;
 import com.alienbankframework.controller.implementations.AlienController;;
 
 
-public class JDialog_AddPCustomer extends AbstractCustomerDialog
+public final class JDialog_AddPCustomer extends AbstractCustomerDialog
 {
     private AlienForm parentframe;
     private AlienController controller;

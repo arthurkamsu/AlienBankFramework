@@ -7,7 +7,7 @@ import com.alienbankframework.controller.IController;
 
 
 
-public class JDialog_Entry extends AbstractEntryDialog
+public final class JDialog_Entry extends AbstractEntryDialog
 {
     
 

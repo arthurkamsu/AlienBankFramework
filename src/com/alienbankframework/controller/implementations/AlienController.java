@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.alienbankframework.Alien;
 import com.alienbankframework.controller.IController;
 import com.alienbankframework.domain.EntryType;
 import com.alienbankframework.domain.IAccount;
@@ -25,6 +26,10 @@ import java.time.LocalDate;
 import java.util.Iterator;
 
 public class AlienController implements IController{
+	
+	private static volatile AlienController instance = null;
+	
+	
 	AlienForm frame;	
 	AccountManager manager;
 	JButton buttonCusAC;
@@ -40,8 +45,22 @@ public class AlienController implements IController{
     private JTable JTable1;
     String accnr = null;
     int selection = -1;
+    
+    
+    public static AlienController getInstance() {
+        if (instance == null) {
+            synchronized(Alien.class) {
+                if (instance == null) {
+                    instance = new AlienController();
+                }                
+            }
+        }else System.out.println("Instance of AlienController alredy exists. The existing instance is being returned.");
+        return instance;
+    }
+    
+    private AlienController() {}
 	
-	public AlienController(AlienForm frame, AccountManager manager) {
+	public void Initialize(AlienForm frame, AccountManager manager) {
 		this.frame = frame;
 		this.manager = manager;
 		
@@ -202,7 +221,7 @@ public class AlienController implements IController{
 	}
 
 	private void addInterest() {
-		manager.addInterestOnAccounts(0.15);
+		manager.addInterestOnAccounts(0.15);//to be changed later to give the possibility to apply a custum interest rate.
 		updateAccounts();
 	}
 	

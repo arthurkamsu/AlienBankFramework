@@ -4,22 +4,26 @@ import com.alienbankframework.controller.implementations.AlienController;
 import com.alienbankframework.service.implementations.AccountManager;
 import com.alienbankframework.view.AlienForm;
 
-public class Alien {
-	private static boolean isInitialized = false;
-	private static AccountManager acctManager;
-	private static AlienForm alienframe;
+public final class Alien {
 	
-	public static void Initialize()
+	private static volatile Alien instance = null;
+	
+	private boolean isInitialized = false;
+	private AccountManager acctManager;
+	private AlienForm alienframe;
+	
+	public void Initialize()
 	{
-		acctManager = new AccountManager();
-		alienframe = new AlienForm(); 
-		new AlienController(alienframe, acctManager);	
-		isInitialized = true;
+		this.acctManager = AccountManager.getInstance();//model-service		
+		this.alienframe = new AlienForm(); //view
+		AlienController.getInstance().Initialize(this.alienframe, this.acctManager);	// controller	
+		//AlienController.getInstance();
+		this.isInitialized = true;
 	}
-	public static void lunch() {
-		if(!isInitialized)
+	public void lunch() {
+		if(!this.isInitialized)
 			Initialize();
-		alienframe.setVisible(true);
+		this.alienframe.setVisible(true);//display the view
 	}
 /*
 	public static void main(String[] args) {
@@ -28,5 +32,19 @@ public class Alien {
 	
 	}
 */
+	
+
+    private Alien() {}
+
+    public static Alien getInstance() {
+        if (instance == null) {
+            synchronized(Alien.class) {
+                if (instance == null) {
+                    instance = new Alien();
+                }                
+            }
+        }else System.out.println("Instance of Alien alredy exists. The existing instance is being returned.");
+        return instance;
+    }
 	
 }
