@@ -15,9 +15,8 @@ public final class Alien {
 	public void Initialize()
 	{
 		this.acctManager = AccountManager.getInstance();//model-service		
-		this.alienframe = new AlienForm(); //view
+		this.alienframe = AlienForm.getInstance(); //view
 		AlienController.getInstance().Initialize(this.alienframe, this.acctManager);	// controller	
-		//AlienController.getInstance();
 		this.isInitialized = true;
 	}
 	public void lunch() {

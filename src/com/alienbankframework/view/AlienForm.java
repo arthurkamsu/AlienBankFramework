@@ -4,19 +4,36 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import javax.swing.table.DefaultTableModel;
+
+import com.alienbankframework.Alien;
+import com.alienbankframework.service.implementations.AccountManager;
+
 import javax.swing.*;
 
 
 public final class AlienForm extends AbstractFrame
 {
-    /****
-     * init variables in the object
-     ****/
+ 
+	private static volatile AlienForm instance = null;
+
+	
     private DefaultTableModel model;
     private JTable JTable1;
     //FincoFrm myframe;
     
-	public AlienForm()
+    public static AlienForm getInstance() {
+        if (instance == null) {
+            synchronized(Alien.class) {
+                if (instance == null) {
+                    instance = new AlienForm();
+                }                
+            }
+        }else System.out.println("Instance of AlienForm alredy exists. The existing instance is being returned.");
+        return instance;
+    }
+   
+    
+	private AlienForm()
 	{
 		super("Alien Bank.");
 		
