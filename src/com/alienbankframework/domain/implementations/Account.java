@@ -88,11 +88,11 @@ public class Account extends AAccount{
 	public String getAccountNumber() {
 		return accountNumber;
 	}
-
-	public Iterator<IEntry> getEntryListIterator() {
-		return entryList.iterator();
-	}
 */
+	public Iterator<IEntry> getEntryListIterator() {
+		return super.getEntryListIterator();
+	}
+
 	
 	/*
 
